@@ -68,6 +68,50 @@ class GridTest extends TestCase
 
     }
 
+    public function testScorekeeping()
+    {
+        $grid = new Grid(10, 10);
+        $shipA = new Ship(Ship::SHIP_FRIGATE, Ship::ORIENTATION_HORIZONTAL, 0, 0);
+        $shipB = new Ship(Ship::SHIP_SCOUT, Ship::ORIENTATION_HORIZONTAL, 0, 3);
+        $grid->placeShip($shipA);
+        $grid->placeShip($shipB);
+
+        $this->assertEquals(0, $grid->getShotsFired());
+        $this->assertEquals(0, $grid->getHits());
+        $this->assertEquals(0, $grid->getSinkings());
+
+        $grid->fireAtSquare(10, 10);
+        $this->assertEquals(1, $grid->getShotsFired());
+        $this->assertEquals(0, $grid->getHits());
+        $this->assertEquals(0, $grid->getSinkings());
+
+        $grid->fireAtSquare(0, 0);
+        $this->assertEquals(2, $grid->getShotsFired());
+        $this->assertEquals(1, $grid->getHits());
+        $this->assertEquals(0, $grid->getSinkings());
+
+        $grid->fireAtSquare(1, 0);
+        $this->assertEquals(3, $grid->getShotsFired());
+        $this->assertEquals(2, $grid->getHits());
+        $this->assertEquals(0, $grid->getSinkings());
+
+        $grid->fireAtSquare(2, 0);
+        $this->assertEquals(4, $grid->getShotsFired());
+        $this->assertEquals(3, $grid->getHits());
+        $this->assertEquals(1, $grid->getSinkings());
+
+        $grid->fireAtSquare(0, 3);
+        $this->assertEquals(5, $grid->getShotsFired());
+        $this->assertEquals(4, $grid->getHits());
+        $this->assertEquals(1, $grid->getSinkings());
+
+        $grid->fireAtSquare(1, 3);
+        $this->assertEquals(6, $grid->getShotsFired());
+        $this->assertEquals(5, $grid->getHits());
+        $this->assertEquals(2, $grid->getSinkings());
+
+    }
+
 
     /**
      * Data Provider for testGridConstructorThrowsExceptionOnInvalidParams

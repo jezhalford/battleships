@@ -13,6 +13,7 @@ class Grid
 {
 
     private $height;
+
     private $width;
 
     private $placements = array();
@@ -20,6 +21,13 @@ class Grid
     private $coveredSquares = array();
 
     private $targettedSquares = array(array());
+
+    private $shots = 0;
+
+    private $hits = 0;
+
+    private $sinkings = 0;
+
 
     public function __construct($height, $width)
     {
@@ -67,6 +75,8 @@ class Grid
             throw new FiringException('You have already fired at this square');
         }
 
+        $this->shots++;
+
         if (!isset($this->targettedSquares[$x])) {
             $this->targettedSquares[$x] = array();
         }
@@ -76,7 +86,28 @@ class Grid
         if (isset($this->coveredSquares[$x][$y]) && $this->coveredSquares[$x][$y] !== null) {
             $ship = $this->coveredSquares[$x][$y];
             $ship->hit();
+            $this->hits++;
+
+            if ($ship->isSunk()) {
+                $this->sinkings++;
+            }
+
             return $ship;
         }
+    }
+
+    public function getShotsFired()
+    {
+        return $this->shots;
+    }
+
+    public function getHits()
+    {
+        return $this->hits;
+    }
+
+    public function getSinkings()
+    {
+        return $this->sinkings;
     }
 }
