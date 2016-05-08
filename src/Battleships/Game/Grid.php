@@ -18,9 +18,15 @@ class Grid
 
     private $placements = array();
 
+    /**
+     * 2D array where each populated square contains a reference to the populating ship
+     */
     private $coveredSquares = array();
 
-    private $targettedSquares = array(array());
+    /**
+     * 2D array where each targetted square is set to true
+     */
+    private $targettedSquares = array();
 
     private $shots = 0;
 
@@ -56,6 +62,9 @@ class Grid
         return $this->placements;
     }
 
+    /**
+     * Add a ship to the game grid
+     */
     public function placeShip(Ship $ship)
     {
         $this->placements[] = new Placement($ship, $this);

@@ -29,6 +29,12 @@ class Ship
 
     private $health = 100;
 
+    /**
+     * @param $type int, one of self::SHIP_*
+     * @param $orientation int, one of self::ORIENTATION_*
+     * @param $positionX int, X coordinate
+     * @param $positionT int, Y coordinate
+     */
     public function __construct($type, $orientation, $positionX, $positionY)
     {
         if(!in_array($type, $this->validShipTypes())) {
@@ -74,6 +80,10 @@ class Ship
         return $this->positionY;
     }
 
+    /**
+     * Returns an array of the grid squares covered by this ship, in the form
+     *  array(array(x => 1, y => 1), array(x => 2, y => 1))
+     */
     public function getCoveredSquares()
     {
         $covered = array();
@@ -93,6 +103,9 @@ class Ship
         return $covered;
     }
 
+    /**
+     * Hit this ship
+     */
     public function hit()
     {
         $this->health = $this->health - (100 / $this->getLength());
