@@ -45,6 +45,29 @@ class ShipTest extends TestCase
         $this->assertCount(count($expectedCoveredSquares), $coveredSquares);
     }
 
+    public function testHealthTracking()
+    {
+
+        $ship = new Ship(Ship::SHIP_SCOUT, Ship::ORIENTATION_HORIZONTAL, 0, 0);
+
+        $this->assertEquals(100, $ship->getHealth());
+        $this->assertFalse($ship->isSunk());
+        $this->assertFalse($ship->isHit());
+
+        $ship->hit();
+
+        $this->assertEquals(50, $ship->getHealth());
+        $this->assertFalse($ship->isSunk());
+        $this->assertTrue($ship->isHit());
+
+        $ship->hit();
+
+        $this->assertEquals(0, $ship->getHealth());
+        $this->assertTrue($ship->isSunk());
+        $this->assertTrue($ship->isHit());
+
+    }
+
 
     /**
      * Data Provider for testGridConstructorThrowsExceptionOnInvalidParams

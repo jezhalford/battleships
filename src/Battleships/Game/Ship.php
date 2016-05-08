@@ -27,6 +27,8 @@ class Ship
 
     private $positionY;
 
+    private $health = 100;
+
     public function __construct($type, $orientation, $positionX, $positionY)
     {
         if(!in_array($type, $this->validShipTypes())) {
@@ -89,6 +91,26 @@ class Ship
         }
 
         return $covered;
+    }
+
+    public function hit()
+    {
+        $this->health = $this->health - (100 / $this->getLength());
+    }
+
+    public function getHealth()
+    {
+        return $this->health;
+    }
+
+    public function isSunk()
+    {
+        return $this->getHealth() <= 0;
+    }
+
+    public function isHit()
+    {
+        return $this->getHealth() < 100;
     }
 
     private function validShipTypes() {
