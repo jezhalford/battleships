@@ -1,0 +1,20 @@
+{
+    "name": "jezhalford/battleships",
+    "description": "Battleships classes",
+    "autoload": {
+       "psr-4": {
+           "Battleships\\": "src/Battleships",
+           "Battleships\\Tests\\": "test/Battleships/Tests"
+         }
+     },
+    "require": {
+        "mockery/mockery": "^0.9.4",
+        "phpunit/phpunit": "4.8.*"
+    },
+    "authors": [
+        {
+            "name": "Jez Halford",
+            "email": "jezhalford@gmail.com"
+        }
+    ]
+}
